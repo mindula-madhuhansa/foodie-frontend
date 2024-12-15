@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { dishes } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,19 +6,16 @@ type SearchParamProps = {
   searchParams: { query: string };
 };
 
-export default function SearchResultPage({ searchParams }: SearchParamProps) {
-  const query = searchParams.query;
+export default async function SearchResultPage({
+  searchParams,
+}: SearchParamProps) {
+  const { query } = await searchParams;
 
   return (
-    <div>
+    <div className="mt-4">
       <h2 className="text-xl font-medium">Seach results for {`"${query}"`}</h2>
 
-      <div className="mt-8 space-x-3">
-        <Button>Dishes</Button>
-        <Button>Restaurants</Button>
-      </div>
-
-      <section className="mt-4 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {dishes.map((dish) => (
           <Link
             href={"/"}
