@@ -11,13 +11,13 @@ export default function Home() {
       <section className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8">
         <div className="space-y-4">
           <h1 className="text-5xl lg:text-6xl text-center lg:text-left font-semibold tracking-wide">
-            Find the best food in town
+            Find the best food
           </h1>
 
           <Form action="/search" className="flex items-center gap-x-4">
             <Input
               name="query"
-              placeholder="Search food item or restaurant..."
+              placeholder="Search food item..."
               className="lg:max-w-xl"
             />
             <Button type="submit">
