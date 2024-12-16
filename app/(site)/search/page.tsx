@@ -1,6 +1,8 @@
-import { dishes } from "@/data";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { ChevronRightIcon } from "lucide-react";
+
+import { dishes } from "@/data";
 
 type SearchParamProps = {
   searchParams: { query: string };
@@ -42,6 +44,13 @@ export default async function SearchResultPage({
           </Link>
         ))}
       </section>
+
+      <Link
+        href="/"
+        className="text-primary font-medium flex items-center justify-end gap-3"
+      >
+        View More <ChevronRightIcon className="size-5" />
+      </Link>
     </div>
   );
 }
