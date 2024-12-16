@@ -1,7 +1,8 @@
-import { dishes } from "@/data";
-import { ChevronRightIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { ChevronRightIcon } from "lucide-react";
+
+import { dishes } from "@/data";
 
 type SearchParamProps = {
   searchParams: { query: string };

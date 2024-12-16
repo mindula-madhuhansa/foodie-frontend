@@ -1,11 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
 import { ShoppingBagIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/auth-context";
 
 export default function Header() {
-  const user = false;
+  const { user, signOut } = useAuth();
 
   return (
     <header className="flex items-center justify-between w-full max-w-screen-2xl mx-auto p-6 lg:p-12">
@@ -17,13 +19,11 @@ export default function Header() {
         <ShoppingBagIcon className="w-7 h-7" />
 
         {user ? (
-          <Image
-            src="/assets/images/avatar.png"
-            alt="Avatar"
-            height={1024}
-            width={1024}
-            className="rounded-full border size-10 bg-primary cursor-pointer"
-          />
+          <>
+            <p>{user.fullName}!</p>
+
+            <Button onClick={signOut}>Sign Out</Button>
+          </>
         ) : (
           <>
             <Link href="/sign-in" className="hidden md:flex">

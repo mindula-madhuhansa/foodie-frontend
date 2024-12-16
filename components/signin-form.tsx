@@ -3,53 +3,34 @@
 
 import { toast } from "sonner";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { post } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
-import { useRouter } from "next/navigation";
 
-export default function SignupForm() {
+export default function SignInForm() {
   const router = useRouter();
-  const { setUser, user } = useAuth();
-  console.log(user);
-
+  const { setUser } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
 
     setLoading(true);
     try {
-      const user: User = {
-        fullName: formData.name,
-        email: formData.email,
-        password: formData.password,
-        role: "USER",
-      };
-
-      const res = await post("/users/sign-up", user);
-      toast.success("Signed up successfully");
-
+      const res = await post("/users/sign-in", formData);
       setUser(res);
       setLoading(false);
-      router.replace("/");
+      toast.success("Logged in successfully");
+      router.push("/");
     } catch (err: any) {
       toast.error(err.message);
       setLoading(false);
@@ -57,18 +38,7 @@ export default function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSignUp} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="name">Name</Label>
-        <Input
-          id="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter your name"
-          required
-        />
-      </div>
+    <form onSubmit={handleSignIn} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
@@ -91,19 +61,8 @@ export default function SignupForm() {
           required
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="Enter your password again"
-          required
-        />
-      </div>
       <Button disabled={loading} type="submit" className="w-full">
-        {loading ? "Signing up..." : "Sign up"}
+        {loading ? "Signing in..." : "Sign In"}
       </Button>
     </form>
   );

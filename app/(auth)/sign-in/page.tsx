@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import LoginForm from "@/components/login-form";
+import SignInForm from "@/components/signin-form";
 
 export default function LoginPage() {
   return (
@@ -17,11 +17,11 @@ export default function LoginPage() {
       </div>
       <div className="flex w-full flex-col items-center justify-center p-8 lg:w-1/2">
         <div className="w-full max-w-md">
-          <h1 className="mb-8 text-3xl font-bold">Login</h1>
-          <LoginForm />
+          <h1 className="mb-8 text-3xl font-bold">Sign In</h1>
+          <SignInForm />
           <p className="mt-4 text-center text-sm text-muted-foreground flex w-full justify-end">
-            Don&apos;t have an account?{" "}
-            <Link href="/sign-up" className="text-primary hover:underline">
+            Don&apos;t have an account?
+            <Link href="/sign-up" className="ml-2 text-primary hover:underline">
               Sign up
             </Link>
           </p>
