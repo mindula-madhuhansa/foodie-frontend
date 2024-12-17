@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const publicRoutes = ["/", "/sign-in", "/sign-up"];
+  const publicRoutes = ["/sign-in", "/sign-up"];
   const url = request.nextUrl.clone();
 
   const token = request.cookies.get("user-token")?.value;
 
-  if (publicRoutes.includes(url.pathname)) {
+  if (!publicRoutes.includes(url.pathname)) {
     return NextResponse.next();
   }
 
