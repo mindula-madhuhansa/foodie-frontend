@@ -5,3 +5,12 @@ interface User {
   password: string;
   role?: "USER" | "OWNER";
 }
+
+interface FoodItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imgUrl?: string;
+  shopOwnerId?: string;
+}

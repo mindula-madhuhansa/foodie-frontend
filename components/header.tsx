@@ -1,11 +1,8 @@
 import Link from "next/link";
 import { ShoppingBagIcon } from "lucide-react";
-import { currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 
 export default async function Header() {
-  const user = await currentUser();
-
   return (
     <header className="flex items-center justify-between w-full max-w-screen-2xl mx-auto p-6 lg:p-12">
       <Link href="/">

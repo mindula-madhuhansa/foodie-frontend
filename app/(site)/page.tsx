@@ -4,6 +4,7 @@ import { SearchIcon } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import FoodSection from "@/components/food-section";
 
 export default function Home() {
   return (
@@ -44,6 +45,8 @@ export default function Home() {
           />
         </div>
       </section>
+
+      <FoodSection />
     </>
   );
 }
