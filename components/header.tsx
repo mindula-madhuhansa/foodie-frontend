@@ -1,13 +1,10 @@
-"use client";
-
 import Link from "next/link";
 import { ShoppingBagIcon } from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
+import { UserButton } from "@clerk/nextjs";
 
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/auth-context";
-
-export default function Header() {
-  const { user, signOut } = useAuth();
+export default async function Header() {
+  const user = await currentUser();
 
   return (
     <header className="flex items-center justify-between w-full max-w-screen-2xl mx-auto p-6 lg:p-12">
@@ -16,25 +13,9 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center space-x-4">
-        <ShoppingBagIcon className="w-7 h-7" />
+        <ShoppingBagIcon className="size-7" />
 
-        {user ? (
-          <>
-            <p>{user.fullName}!</p>
-
-            <Button onClick={signOut}>Sign Out</Button>
-          </>
-        ) : (
-          <>
-            <Link href="/sign-in" className="hidden md:flex">
-              <Button variant="secondary">Sign In</Button>
-            </Link>
-
-            <Link href="/sign-up">
-              <Button>Sign Up</Button>
-            </Link>
-          </>
-        )}
+        <UserButton />
       </div>
     </header>
   );
