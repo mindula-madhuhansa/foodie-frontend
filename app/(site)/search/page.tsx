@@ -5,7 +5,7 @@ import FoodItem from "@/components/food-item";
 import axios from "axios";
 
 type SearchParamProps = {
-  searchParams: { query: string };
+  searchParams: Promise<{ query: string }>;
 };
 
 export default async function SearchResultPage({
