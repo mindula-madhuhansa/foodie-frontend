@@ -14,7 +14,7 @@ export default async function SearchResultPage({
   const { query } = await searchParams;
 
   const foodItems = await axios
-    .get("http://localhost:8080/api/food-items")
+    .get(`${process.env.BACKEND_URL}/api/food-items`)
     .then((res) => res.data);
 
   return (

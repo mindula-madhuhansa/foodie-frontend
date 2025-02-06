@@ -75,19 +75,22 @@ export default function SignupForm() {
 
   if (verifying) {
     return (
-      <>
-        <h1>Verify your email</h1>
-        <form onSubmit={handleVerify}>
-          <label id="code">Enter your verification code</label>
-          <input
-            value={code}
-            id="code"
-            name="code"
-            onChange={(e) => setCode(e.target.value)}
-          />
-          <button type="submit">Verify</button>
-        </form>
-      </>
+      <form onSubmit={handleVerify}>
+        <label id="code">Enter your verification code</label>
+        <input
+          value={code}
+          id="code"
+          name="code"
+          onChange={(e) => setCode(e.target.value)}
+          className="border border-gray-300 rounded-md p-2 w-full"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white rounded-md p-2 w-full"
+        >
+          Verify
+        </button>
+      </form>
     );
   }
 
