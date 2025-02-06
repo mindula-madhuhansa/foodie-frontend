@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { TrashIcon } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { BadgeCheck, Clock, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+type Order = {
+  id: number;
+  name: string;
+  price: number;
+  imgUrl: string;
+  quantity: number;
+  orderDate: string;
+  status: string;
+};
 
 const sampleOrders = [
   {
@@ -15,7 +23,7 @@ const sampleOrders = [
     imgUrl: "/assets/images/dish_1.png",
     quantity: 1,
     orderDate: "2024-02-10",
-    status: "Processing", // "Delivered", "Processing", "Cancelled"
+    status: "Processing",
   },
   {
     id: 2,
@@ -29,7 +37,11 @@ const sampleOrders = [
 ];
 
 export default function OrderPage() {
-  const [orders, setOrders] = useState(sampleOrders);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    setOrders(sampleOrders);
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -71,7 +83,9 @@ export default function OrderPage() {
                 <div className="flex-grow">
                   <h2 className="text-lg font-medium">{order.name}</h2>
                   <p className="text-gray-500">${order.price.toFixed(2)}</p>
-                  <p className="text-sm text-gray-500">Ordered on: {order.orderDate}</p>
+                  <p className="text-sm text-gray-500">
+                    Ordered on: {order.orderDate}
+                  </p>
                 </div>
 
                 {/* Order Status */}
@@ -80,9 +94,15 @@ export default function OrderPage() {
                     order.status
                   )}`}
                 >
-                  {order.status === "Delivered" && <BadgeCheck className="inline w-4 h-4 mr-1" />}
-                  {order.status === "Processing" && <Clock className="inline w-4 h-4 mr-1" />}
-                  {order.status === "Cancelled" && <XCircle className="inline w-4 h-4 mr-1" />}
+                  {order.status === "Delivered" && (
+                    <BadgeCheck className="inline w-4 h-4 mr-1" />
+                  )}
+                  {order.status === "Processing" && (
+                    <Clock className="inline w-4 h-4 mr-1" />
+                  )}
+                  {order.status === "Cancelled" && (
+                    <XCircle className="inline w-4 h-4 mr-1" />
+                  )}
                   {order.status}
                 </span>
               </div>
