@@ -1,8 +1,8 @@
+import axios from "axios";
 import Link from "next/link";
 import { ChevronRightIcon } from "lucide-react";
 
 import FoodItem from "@/components/food-item";
-import axios from "axios";
 
 type SearchParamProps = {
   searchParams: Promise<{ query: string }>;
