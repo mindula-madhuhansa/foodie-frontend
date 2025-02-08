@@ -82,11 +82,11 @@ export default function SignupForm() {
           id="code"
           name="code"
           onChange={(e) => setCode(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 w-full"
+          className="mt-2 border border-gray-300 rounded-md p-2 w-full"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded-md p-2 w-full"
+          className="mt-2 bg-primary text-white rounded-md p-2 w-full"
         >
           Verify
         </button>
