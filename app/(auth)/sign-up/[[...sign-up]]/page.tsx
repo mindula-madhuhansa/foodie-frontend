@@ -1,7 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-
-import SignupForm from "@/components/sign-up-form";
+import { SignUp } from "@clerk/nextjs";
 
 export default function SignupPage() {
   return (
@@ -16,16 +14,7 @@ export default function SignupPage() {
         />
       </div>
       <div className="flex w-full flex-col items-center justify-center p-8 lg:w-1/2">
-        <div className="w-full max-w-md">
-          <h1 className="mb-8 text-3xl font-bold">Sign Up</h1>
-          <SignupForm />
-          <p className="mt-4 text-center text-sm text-muted-foreground flex w-full justify-end">
-            Already have an account?{" "}
-            <Link href="/sign-in" className="ml-2 text-primary hover:underline">
-              Sign In
-            </Link>
-          </p>
-        </div>
+        <SignUp />
       </div>
     </div>
   );

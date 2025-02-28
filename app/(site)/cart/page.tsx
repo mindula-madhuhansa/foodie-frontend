@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import { TrashIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const initialCart = [
   {
@@ -43,7 +44,10 @@ export default function CartPage() {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalAmount = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="max-w-3xl mx-auto p-6">
@@ -56,7 +60,10 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="space-y-4">
             {cart.map((item) => (
-              <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg shadow-sm">
+              <div
+                key={item.id}
+                className="flex items-center gap-4 p-4 border rounded-lg shadow-sm"
+              >
                 <Image
                   src={item.imgUrl}
                   alt={item.name}
@@ -83,7 +90,10 @@ export default function CartPage() {
                     </button>
                   </div>
                 </div>
-                <button onClick={() => removeItem(item.id)} className="text-red-500 hover:text-red-700">
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className="text-red-500 hover:text-red-700"
+                >
                   <TrashIcon className="w-6 h-6" />
                 </button>
               </div>
@@ -92,7 +102,9 @@ export default function CartPage() {
 
           {/* Total Amount */}
           <div className="mt-6 p-4 border rounded-lg shadow-sm text-right bg-primary">
-            <h3 className="text-xl font-semibold ">Total: Rs {totalAmount.toFixed(2)}</h3>
+            <h3 className="text-xl font-semibold ">
+              Total: Rs {totalAmount.toFixed(2)}
+            </h3>
           </div>
 
           {/* Checkout Form */}
@@ -126,9 +138,14 @@ export default function CartPage() {
             {/* Pickup or Delivery */}
             <div className="mt-4">
               <Label>Do you want to pick up your order?</Label>
-              <RadioGroup value={pickup} onChange={setPickup} className="flex gap-4 mt-2">
+              <RadioGroup
+                value={pickup}
+                onChange={setPickup}
+                className="flex gap-4 mt-2"
+              >
                 <RadioGroupItem value="pickup" /> <span>Yes.</span>
-                <RadioGroupItem value="delivery" /> <span>No, I request for a delivery.</span>
+                <RadioGroupItem value="delivery" />{" "}
+                <span>No, I request for a delivery.</span>
               </RadioGroup>
             </div>
 
@@ -137,12 +154,21 @@ export default function CartPage() {
               <div className="mt-4 border p-4 rounded-lg">
                 <Label>Delivery Address</Label>
                 <Input type="text" placeholder="Street Address" required />
-                <Input type="text" placeholder="Street Address Line 2" className="mt-2" />
+                <Input
+                  type="text"
+                  placeholder="Street Address Line 2"
+                  className="mt-2"
+                />
                 <div className="grid grid-cols-2 gap-4 mt-2">
                   <Input type="text" placeholder="City" required />
                   <Input type="text" placeholder="State / Province" required />
                 </div>
-                <Input type="text" placeholder="Postal / Zip Code" className="mt-2" required />
+                <Input
+                  type="text"
+                  placeholder="Postal / Zip Code"
+                  className="mt-2"
+                  required
+                />
               </div>
             )}
 
@@ -155,18 +181,28 @@ export default function CartPage() {
             {/* Payment Methods */}
             <div className="mt-6 border p-4 rounded-lg bg-red-100">
               <Label className="font-semibold">Payment Methods</Label>
-              <RadioGroup value={paymentMethod} onChange={setPaymentMethod} className="flex gap-4 mt-2">
-                <RadioGroupItem value="card" /> <span>Debit or Credit Card</span>
-                <RadioGroupItem value="paypal" /> <span className="italic">PayPal</span>
+              <RadioGroup
+                value={paymentMethod}
+                onChange={setPaymentMethod}
+                className="flex gap-4 mt-2"
+              >
+                <RadioGroupItem value="card" />{" "}
+                <span>Debit or Credit Card</span>
+                <RadioGroupItem value="paypal" />{" "}
+                <span className="italic">PayPal</span>
               </RadioGroup>
 
               {paymentMethod === "paypal" && (
-                <p className="text-red-500 text-sm mt-2">PayPal Script not reloaded, please reload your page.</p>
+                <p className="text-red-500 text-sm mt-2">
+                  PayPal Script not reloaded, please reload your page.
+                </p>
               )}
             </div>
 
             {/* Submit Button */}
-            <Button className="mt-6 w-full bg-primary text-white py-2">Submit</Button>
+            <Button className="mt-6 w-full bg-primary text-white py-2">
+              Submit
+            </Button>
           </div>
         </>
       )}

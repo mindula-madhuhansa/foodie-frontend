@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import FoodItem from "@/components/food-item";
 
 export default async function FoodSection() {

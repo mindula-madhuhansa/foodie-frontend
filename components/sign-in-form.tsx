@@ -34,11 +34,14 @@ export default function SignInForm() {
         router.push("/");
       } else {
         toast.error("Invalid email address or password");
-        console.error(JSON.stringify(signInAttempt, null, 2));
+        setEmail("");
+        setPassword("");
       }
     } catch (err) {
       toast.error("Invalid email address or password");
       console.error(JSON.stringify(err, null, 2));
+      setEmail("");
+      setPassword("");
     }
   };
 
