@@ -46,7 +46,10 @@ export default function Home() {
         </div>
       </section>
 
-      <FoodSection />
+      <div className="py-12">
+        <h2 className="text-3xl font-medium">Featured Dishes</h2>
+        <FoodSection />
+      </div>
     </>
   );
 }
