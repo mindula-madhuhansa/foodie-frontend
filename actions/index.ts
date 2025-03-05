@@ -1,7 +1,9 @@
 "use server";
 
 import axios from "axios";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
 type FoodItemValuesTypes = {
   name: string;
@@ -109,5 +111,20 @@ export async function addOrder(values: OrderValuesTypes) {
   } catch (error) {
     console.error("Failed to add order:", error);
     throw error;
+  }
+}
+
+export async function checkAdmin() {
+  const { userId } = await auth();
+
+  const clerk = await clerkClient();
+  const org = await clerk.organizations.getOrganizationMembershipList({
+    organizationId: "org_2tf8jzxi63PY0Ei0NETyTYFPzs9",
+  });
+
+  if (org.data[0].publicUserData?.userId !== userId) {
+    return redirect("/");
+  } else {
+    return true;
   }
 }

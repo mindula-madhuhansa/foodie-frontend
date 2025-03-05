@@ -1,20 +1,10 @@
-import { redirect } from "next/navigation";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { checkAdmin } from "@/actions";
 
 import FoodSection from "@/components/food-section";
 import FoodItemAddModal from "@/components/food-item-add-modal";
 
 export default async function DashboardPage() {
-  const { userId } = await auth();
-
-  const clerk = await clerkClient();
-  const org = await clerk.organizations.getOrganizationMembershipList({
-    organizationId: "org_2tf8jzxi63PY0Ei0NETyTYFPzs9",
-  });
-
-  if (org.data[0].publicUserData?.userId !== userId) {
-    return redirect("/");
-  }
+  await checkAdmin();
 
   return (
     <div>
