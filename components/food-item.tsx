@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { ShoppingCartIcon, StarIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/cart-context";
+import { toast } from "sonner";
 
 export default function FoodItem({ foodItem }: { foodItem: FoodItem }) {
+  const { addToCart } = useCart();
+
   return (
     <div
       key={foodItem.name}
@@ -40,7 +46,13 @@ export default function FoodItem({ foodItem }: { foodItem: FoodItem }) {
               currency: "LKR",
             })}
           </p>
-          <Button className="py-2 px-4 [&_svg]:size-5">
+          <Button
+            onClick={() => {
+              addToCart(foodItem);
+              toast.success(`${foodItem.name} added to cart`);
+            }}
+            className="py-2 px-4 [&_svg]:size-5"
+          >
             <ShoppingCartIcon />
             Add to Cart
           </Button>

@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { CartProvider } from "@/context/cart-context";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,12 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${poppins.className} antialiased`}>
-          {children}
-          <Toaster />
-        </body>
-      </html>
+      <CartProvider>
+        <html lang="en">
+          <body className={`${poppins.className} antialiased`}>
+            {children}
+            <Toaster />
+          </body>
+        </html>
+      </CartProvider>
     </ClerkProvider>
   );
 }

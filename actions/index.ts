@@ -3,7 +3,7 @@
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 
-type ValuesTypes = {
+type FoodItemValuesTypes = {
   name: string;
   description: string;
   price: string;
@@ -11,7 +11,18 @@ type ValuesTypes = {
   shopOwnerId: string;
 };
 
-export async function addFoodItem(values: ValuesTypes) {
+type OrderValuesTypes = {
+  userId: string;
+  shopOwnerId: string;
+  foodItemIds: string[];
+  totalPrice: number;
+  quantity: number;
+  orderStatus: string;
+  deliveryAddress: string;
+  contactNumber: string;
+};
+
+export async function addFoodItem(values: FoodItemValuesTypes) {
   try {
     const response = await axios.post(
       "https://foodies-production.up.railway.app/api/food-items",
@@ -38,7 +49,7 @@ export async function addFoodItem(values: ValuesTypes) {
   }
 }
 
-export async function updateFoodItem(id: string, values: ValuesTypes) {
+export async function updateFoodItem(id: string, values: FoodItemValuesTypes) {
   try {
     const response = await axios.put(
       `https://foodies-production.up.railway.app/api/food-items/${id}`,
@@ -76,6 +87,27 @@ export async function deleteFoodItem(id: string) {
     return response.data;
   } catch (error) {
     console.error("Failed to delete food item:", error);
+    throw error;
+  }
+}
+
+export async function addOrder(values: OrderValuesTypes) {
+  try {
+    const response = await axios.post(
+      "https://foodies-production.up.railway.app/api/orders",
+      values,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidatePath("/cart");
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to add order:", error);
     throw error;
   }
 }

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCartIcon } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
 import { SignInButton, UserButton } from "@clerk/nextjs";
+import Cart from "./cart";
 
 export default async function Header() {
   const user = await currentUser();
@@ -22,10 +22,8 @@ export default async function Header() {
         <h1 className="text-3xl font-bold tracking-wide">Foodie</h1>
       </Link>
 
-      <div className="flex items-center space-x-4">
-        <Link href="/cart">
-          <ShoppingCartIcon className="size-7 text-gray-700 hover:text-primary transition" />
-        </Link>
+      <div className="flex items-center space-x-4 relative">
+        <Cart />
 
         {user ? <UserButton /> : <SignInButton />}
       </div>
