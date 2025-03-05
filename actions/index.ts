@@ -7,6 +7,7 @@ type ValuesTypes = {
   name: string;
   description: string;
   price: string;
+  imgUrl: string;
   shopOwnerId: string;
 };
 
@@ -18,6 +19,7 @@ export async function addFoodItem(values: ValuesTypes) {
         name: values.name,
         description: values.description,
         price: parseFloat(values.price),
+        imgUrl: values.imgUrl,
         shopOwnerId: values.shopOwnerId,
       },
       {
@@ -44,6 +46,7 @@ export async function updateFoodItem(id: string, values: ValuesTypes) {
         name: values.name,
         description: values.description,
         price: parseFloat(values.price),
+        imgUrl: values.imgUrl,
         shopOwnerId: values.shopOwnerId,
       },
       {

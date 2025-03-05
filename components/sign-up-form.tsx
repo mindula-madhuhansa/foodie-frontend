@@ -6,6 +6,13 @@ import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -104,6 +111,18 @@ export default function SignupForm() {
           placeholder="Enter your password again"
           required
         />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="confirmPassword">Role</Label>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Role" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="light">Buyer</SelectItem>
+            <SelectItem value="dark">Seller</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <Button type="submit" className="w-full">

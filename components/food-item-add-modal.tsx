@@ -34,6 +34,7 @@ const formSchema = z.object({
     .string()
     .min(3, "Description must be at least 3 characters long"),
   price: z.string(),
+  imgUrl: z.string(),
   shopOwnerId: z.string(),
 });
 
@@ -48,6 +49,7 @@ export default function FoodItemAddModal() {
       name: "",
       description: "",
       price: "",
+      imgUrl: "",
       shopOwnerId: "",
     },
   });
@@ -121,9 +123,9 @@ export default function FoodItemAddModal() {
               )}
             />
 
-            {/* <FormField
+            <FormField
               control={form.control}
-              name="imageUrl"
+              name="imgUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Image URL</FormLabel>
@@ -133,7 +135,7 @@ export default function FoodItemAddModal() {
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
 
             <Button type="submit">Save</Button>
           </form>

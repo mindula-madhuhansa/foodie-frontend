@@ -19,22 +19,27 @@ export default function FoodItem({ foodItem }: { foodItem: FoodItem }) {
 
       <div className="flex flex-col justify-between gap-2 w-full">
         <div>
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-medium capitalize">{foodItem.name}</h3>
+          <div className="flex justify-between items-center gap-2">
+            <h3 className="font-medium capitalize">{foodItem.name}</h3>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-xs">
               <StarIcon className="size-4 text-yellow-400 fill-current" />
               <p>4.8</p>
             </div>
           </div>
 
-          <p className="mt-4 text-gray-500 text-sm line-clamp-1 capitalize">
+          <p className="mt-4 text-gray-500 text-sm line-clamp-2 capitalize">
             {foodItem.description}
           </p>
         </div>
 
-        <div className="flex justify-between items-center">
-          <p className="text-gray-600">LKR {foodItem.price}</p>
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">
+            {foodItem.price.toLocaleString("en-US", {
+              style: "currency",
+              currency: "LKR",
+            })}
+          </p>
           <Button className="py-2 px-4 [&_svg]:size-5">
             <ShoppingCartIcon />
             Add to Cart

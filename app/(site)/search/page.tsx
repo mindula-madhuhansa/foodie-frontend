@@ -1,6 +1,4 @@
 import axios from "axios";
-import Link from "next/link";
-import { ChevronRightIcon } from "lucide-react";
 
 import FoodItem from "@/components/food-item";
 
@@ -14,7 +12,7 @@ export default async function SearchResultPage({
   const { query } = await searchParams;
 
   const foodItems = await axios
-    .get(`${process.env.BACKEND_URL}/api/food-items`)
+    .get(`${process.env.BACKEND_URL}/api/food-items/search?query=${query}`)
     .then((res) => res.data);
 
   return (
@@ -26,13 +24,6 @@ export default async function SearchResultPage({
           <FoodItem key={foodItem.id} foodItem={foodItem} />
         ))}
       </section>
-
-      <Link
-        href="/"
-        className="text-primary font-medium flex items-center justify-end gap-3"
-      >
-        View More <ChevronRightIcon className="size-5" />
-      </Link>
     </div>
   );
 }
