@@ -100,7 +100,7 @@ export default function AboutPage() {
           Have questions? Reach out to us:
         </p>
         <p className="text-lg font-medium text-primary mt-2">
-          📞 +94 123456789
+          📞 +94 75 79 799 38
         </p>
         <p className="text-lg font-medium text-primary mt-2">
           📧 support@foodie.com
