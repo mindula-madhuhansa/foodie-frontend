@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 
 export default function SiteLayout({
@@ -11,7 +12,7 @@ export default function SiteLayout({
       <main className="flex-grow flex flex-col max-w-screen-2xl mx-auto w-full p-6 lg:p-12">
         {children}
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

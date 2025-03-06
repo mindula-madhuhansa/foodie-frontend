@@ -14,10 +14,10 @@ export default function Footer() {
             <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/services">Services</Link>
+            <Link href="/">Services</Link>
           </li>
           <li>
-            <Link href="/contact">Contact</Link>
+            <Link href="/">Contact</Link>
           </li>
         </ul>
 
