@@ -12,7 +12,9 @@ export default async function SearchResultPage({
   const { query } = await searchParams;
 
   const foodItems = await axios
-    .get(`${process.env.BACKEND_URL}/api/food-items/search?query=${query}`)
+    .get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/food-items/search?query=${query}`
+    )
     .then((res) => res.data);
 
   return (

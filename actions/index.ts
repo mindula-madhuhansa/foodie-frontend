@@ -1,7 +1,6 @@
 "use server";
 
 import axios from "axios";
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
@@ -27,7 +26,7 @@ type OrderValuesTypes = {
 export async function addFoodItem(values: FoodItemValuesTypes) {
   try {
     const response = await axios.post(
-      "https://foodies-production.up.railway.app/api/food-items",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/food-items`,
       {
         name: values.name,
         description: values.description,
@@ -54,7 +53,7 @@ export async function addFoodItem(values: FoodItemValuesTypes) {
 export async function updateFoodItem(id: string, values: FoodItemValuesTypes) {
   try {
     const response = await axios.put(
-      `https://foodies-production.up.railway.app/api/food-items/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/food-items/${id}`,
       {
         name: values.name,
         description: values.description,
@@ -81,7 +80,7 @@ export async function updateFoodItem(id: string, values: FoodItemValuesTypes) {
 export async function deleteFoodItem(id: string) {
   try {
     const response = await axios.delete(
-      `https://foodies-production.up.railway.app/api/food-items/${id}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/food-items/${id}`
     );
 
     revalidatePath("/dashboard");
@@ -96,7 +95,7 @@ export async function deleteFoodItem(id: string) {
 export async function addOrder(values: OrderValuesTypes) {
   try {
     const response = await axios.post(
-      "https://foodies-production.up.railway.app/api/orders",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
       values,
       {
         headers: {
@@ -116,15 +115,10 @@ export async function addOrder(values: OrderValuesTypes) {
 
 export async function checkAdmin() {
   const { userId } = await auth();
-
   const clerk = await clerkClient();
   const org = await clerk.organizations.getOrganizationMembershipList({
     organizationId: "org_2tf8jzxi63PY0Ei0NETyTYFPzs9",
   });
 
-  if (org.data[0].publicUserData?.userId !== userId) {
-    return redirect("/");
-  } else {
-    return true;
-  }
+  return org.data[0].publicUserData?.userId === userId;
 }

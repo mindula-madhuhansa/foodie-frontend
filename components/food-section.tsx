@@ -9,7 +9,7 @@ export default async function FoodSection({
   isDashboard?: boolean;
 }) {
   const foodItems = await axios
-    .get(`${process.env.BACKEND_URL}/api/food-items`)
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/food-items`)
     .then((res) => res.data)
     .catch((err) => console.error(err));
 

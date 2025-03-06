@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { LayoutDashboardIcon } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 
@@ -7,7 +8,6 @@ import { checkAdmin } from "@/actions";
 
 import Cart from "./cart";
 import { Button } from "./ui/button";
-import { LayoutDashboardIcon } from "lucide-react";
 
 export default async function Header() {
   const user = await currentUser();

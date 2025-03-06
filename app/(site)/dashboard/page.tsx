@@ -1,10 +1,16 @@
+import { redirect } from "next/navigation";
+
 import { checkAdmin } from "@/actions";
 
 import FoodSection from "@/components/food-section";
 import FoodItemAddModal from "@/components/food-item-add-modal";
 
 export default async function DashboardPage() {
-  await checkAdmin();
+  const isAdmin = await checkAdmin();
+
+  if (!isAdmin) {
+    return redirect("/");
+  }
 
   return (
     <div>
