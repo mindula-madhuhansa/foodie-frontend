@@ -21,7 +21,7 @@ export default function Footer() {
           </li>
         </ul>
 
-        <p>Contact +94 123456789</p>
+        <p>Contact +94 757979938</p>
       </div>
     </footer>
   );
