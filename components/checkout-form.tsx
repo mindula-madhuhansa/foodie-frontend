@@ -3,6 +3,7 @@
 import { z } from "zod";
 import Image from "next/image";
 import { toast } from "sonner";
+import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { TrashIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -20,9 +21,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const formSchema = z.object({
   userId: z.string(),
@@ -38,6 +41,8 @@ const formSchema = z.object({
 export default function CheckoutForm() {
   const { user } = useUser();
   const router = useRouter();
+
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const { cart, updateQuantity, removeItem, totalAmount, totalItems } =
     useCart();
@@ -55,6 +60,7 @@ export default function CheckoutForm() {
       contactNumber: "",
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await addOrder(values);
@@ -132,30 +138,47 @@ export default function CheckoutForm() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-8 border p-6 rounded-lg shadow-md"
+            className="mt-8 border p-6 rounded-lg shadow-md space-y-4"
           >
             <h2 className="text-2xl font-semibold mb-4">Checkout Details</h2>
 
-            <FormField
-              control={form.control}
-              name="deliveryAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Delivery Address</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Enter delivery address" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>Name</Label>
+                <Input
+                  type="text"
+                  value={user?.firstName || ""}
+                  placeholder="First name"
+                  required
+                />
+              </div>
+              <div>
+                <Label>&nbsp;</Label>
+                <Input
+                  type="text"
+                  value={user?.lastName || ""}
+                  placeholder="Last name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Email</Label>
+              <Input
+                type="email"
+                value={user?.primaryEmailAddress?.emailAddress || ""}
+                placeholder="example@email.com"
+                required
+              />
+            </div>
 
             <FormField
               control={form.control}
               name="contactNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image URL</FormLabel>
+                  <FormLabel>Contact number</FormLabel>
                   <FormControl>
                     <Input
                       type="tel"
@@ -167,6 +190,39 @@ export default function CheckoutForm() {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="deliveryAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Delivery address</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Enter delivery address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="mt-6 border p-4 rounded-lg bg-red-100">
+              <Label className="font-semibold">Payment Methods</Label>
+              <RadioGroup
+                value={paymentMethod}
+                onChange={setPaymentMethod}
+                className="flex gap-4 mt-2"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="card" />
+                  <Label>Debit or Credit Card</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="paypal" />
+                  <Label>PayPal</Label>
+                </div>
+              </RadioGroup>
+            </div>
 
             {/* Submit Button */}
             <Button

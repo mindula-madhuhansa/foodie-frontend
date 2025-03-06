@@ -120,5 +120,13 @@ export async function checkAdmin() {
     organizationId: "org_2tf8jzxi63PY0Ei0NETyTYFPzs9",
   });
 
-  return org.data[0].publicUserData?.userId === userId;
+  const isAdmin = org.data.map(
+    (member) => member.publicUserData?.userId === userId
+  );
+
+  if (isAdmin) {
+    return true;
+  } else {
+    return false;
+  }
 }
