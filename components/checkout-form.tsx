@@ -205,6 +205,7 @@ export default function CheckoutForm() {
             />
 
             <FormField
+              defaultValue="cash"
               control={form.control}
               name="paymentMethod"
               render={({ field }) => (
