@@ -3,7 +3,6 @@
 import { z } from "zod";
 import Image from "next/image";
 import { toast } from "sonner";
-import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { TrashIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -36,13 +35,12 @@ const formSchema = z.object({
   orderStatus: z.string(),
   deliveryAddress: z.string(),
   contactNumber: z.string(),
+  paymentMethod: z.enum(["cash", "card"]),
 });
 
 export default function CheckoutForm() {
   const { user } = useUser();
   const router = useRouter();
-
-  const [paymentMethod, setPaymentMethod] = useState("");
 
   const { cart, updateQuantity, removeItem, totalAmount, totalItems } =
     useCart();
@@ -58,6 +56,7 @@ export default function CheckoutForm() {
       orderStatus: "Pending",
       deliveryAddress: "",
       contactNumber: "",
+      paymentMethod: "cash",
     },
   });
 
@@ -205,24 +204,40 @@ export default function CheckoutForm() {
               )}
             />
 
-            <div className="mt-6 border p-4 rounded-lg bg-red-100">
-              <Label className="font-semibold">Payment Methods</Label>
-              <RadioGroup
-                value={paymentMethod}
-                onChange={setPaymentMethod}
-                className="flex gap-4 mt-2"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="card" />
-                  <Label>Debit or Credit Card</Label>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="paypal" />
-                  <Label>PayPal</Label>
-                </div>
-              </RadioGroup>
-            </div>
+            <FormField
+              control={form.control}
+              name="paymentMethod"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Payment method</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="cash" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          Cash on delivery
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="card" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          Credit/Debit card
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             {/* Submit Button */}
             <Button

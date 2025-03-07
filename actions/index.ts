@@ -115,6 +115,8 @@ export async function addOrder(values: OrderValuesTypes) {
 
 export async function checkAdmin() {
   const { userId } = await auth();
+  console.log("userId", userId);
+
   const clerk = await clerkClient();
   const org = await clerk.organizations.getOrganizationMembershipList({
     organizationId: "org_2tf8jzxi63PY0Ei0NETyTYFPzs9",
@@ -124,9 +126,5 @@ export async function checkAdmin() {
     (member) => member.publicUserData?.userId === userId
   );
 
-  if (isAdmin) {
-    return true;
-  } else {
-    return false;
-  }
+  return isAdmin.includes(true);
 }
